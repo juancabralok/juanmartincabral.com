@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juan Martín Cabral</title>
+
+  <style>
+    :root {
+      --text:      #1a1a1a;
+      --muted:     #888;
+      --bg:        #fafaf8;
+      --line:      #e0ddd8;
+      --max:       640px;
+      --serif:     Georgia, 'Times New Roman', serif;
+      --sans:      Georgia, 'Times New Roman', serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 18px; }
+
+    body {
+      font-family: var(--sans);
+      font-weight: 400;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+      padding: 0 1.5rem;
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    /* NAV */
+    header {
+      padding: 2.5rem 0 2rem;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .site-name {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav ul li a {
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active { color: var(--text); }
+
+    /* MAIN */
+    main { padding: 3rem 0 4rem; }
+
+    /* VIEWS */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* HOME */
+    .intro h1 {
+      font-family: var(--serif);
+      font-size: 1.75rem;
+      font-weight: 400;
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+    }
+
+    .intro p { margin-bottom: 1.2rem; font-size: 1rem; }
+
+    .intro a { color: var(--text); text-underline-offset: 3px; }
+
+    .recent-posts {
+      margin-top: 3.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .recent-posts h2 {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .recent-posts ul { list-style: none; }
+
+    .recent-posts li {
+      display: flex;
+      align-items: baseline;
+      gap: 1.25rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .post-date {
+      font-size: 0.78rem;
+      color: var(--muted);
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.02em;
+    }
+
+    .recent-posts li a,
+    .post-list-view li a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .recent-posts li a:hover,
+    .post-list-view li a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+    .ver-todo {
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+    }
+
+    .ver-todo a {
+      color: var(--muted);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .ver-todo a:hover { color: var(--text); }
+
+    /* BLOG LIST */
+    .post-list-view h1 {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 2rem;
+    }
+
+    .post-list-view ul { list-style: none; }
+
+    .post-list-view li {
+      display: flex;
+      align-items: baseline;
+      gap: 1.25rem;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .post-list-view li:first-child { border-top: 1px solid var(--line); }
+
+    /* SINGLE POST */
+    .post-view .post-header {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .post-view .post-header h1 {
+      font-family: var(--serif);
+      font-size: 1.65rem;
+      font-weight: 400;
+      line-height: 1.3;
+      margin-bottom: 0.6rem;
+    }
+
+    .post-view time {
+      font-size: 0.82rem;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    .post-content p { margin-bottom: 1.3rem; }
+
+    .post-content h2 {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin: 2.5rem 0 1rem;
+    }
+
+    .post-content h3 {
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+    }
+
+    .post-content a { color: var(--text); text-underline-offset: 3px; }
+
+    .post-content blockquote {
+      border-left: 2px solid var(--line);
+      padding-left: 1.25rem;
+      color: var(--muted);
+      font-style: italic;
+      margin: 1.5rem 0;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 2rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-decoration: none;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+    }
+
+    .back-link:hover { color: var(--text); }
+
+    /* FOOTER */
+    footer {
+      padding: 1.5rem 0 2.5rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    @media (max-width: 480px) {
+      html { font-size: 16px; }
+      header { padding: 1.75rem 0 1.5rem; }
+      main { padding: 2rem 0 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="site-name" onclick="showView('home')">Juan Martín Cabral</a>
+  <nav>
+    <ul>
+      <li><a onclick="showView('home')" id="nav-home" class="active">Inicio</a></li>
+      <li><a onclick="showView('blog')" id="nav-blog">Blog</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HOME -->
+  <div class="view active" id="view-home">
+    <div class="intro">
+      <h1>Juan Martín Cabral</h1>
+      <p>Soy emprendedor y marketinero radicado en Buenos Aires. Llevo trece años trabajando en marketing, construyendo marcas y negocios desde adentro.</p>
+      <p>Estudié Historia en la <a href="#">USAL</a> y actualmente curso Ciencias Políticas en la <a href="#">UNTREF</a>. Esos dos ejes —la política como fenómeno histórico y como práctica— organizan buena parte de mis lecturas y de lo que escribo acá.</p>
+
+      <h3 style="font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin:2rem 0 0.75rem;font-family:var(--sans);">Lo que me interesa</h3>
+      <p>La historia política argentina y latinoamericana, el pensamiento autonomista de la región (Puig, Jaguaribe, Methol Ferré), la estrategia empresarial y los fundamentos económicos detrás de las decisiones de negocios. Y la pregunta de fondo que conecta todo: cómo se construye poder, en una empresa, en un partido, en un Estado.</p>
+
+      <h3 style="font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin:2rem 0 0.75rem;font-family:var(--sans);">Contacto</h3>
+      <p>La forma más directa es por <a href="mailto:hola@juanmartincabral.com">mail</a>.</p>
+    </div>
+
+    <section class="recent-posts">
+      <h2>Últimas entradas</h2>
+      <ul>
+        <li>
+          <span class="post-date">27.05.2025</span>
+          <a onclick="showPost('post1')">Por qué estudio política siendo empresario</a>
+        </li>
+      </ul>
+      <p class="ver-todo"><a onclick="showView('blog')">Ver todo →</a></p>
+    </section>
+  </div>
+
+  <!-- BLOG LIST -->
+  <div class="view" id="view-blog">
+    <div class="post-list-view">
+      <h1>Blog</h1>
+      <ul>
+        <li>
+          <span class="post-date">27.05.2025</span>
+          <a onclick="showPost('post1')">Por qué estudio política siendo empresario</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- POST 1 -->
+  <div class="view" id="view-post1">
+    <div class="post-view">
+      <a class="back-link" onclick="showView('blog')">← Blog</a>
+      <div class="post-header">
+        <h1>Por qué estudio política siendo empresario</h1>
+        <time>27 de mayo de 2025</time>
+      </div>
+      <div class="post-content">
+        <p>Una pregunta que me hacen seguido: ¿para qué estudiar Ciencias Políticas si tu trabajo es construir empresas?</p>
+        <p>La respuesta corta es que no encuentro forma de entender los negocios en Argentina sin entender la política. No como telón de fondo, sino como variable estructural. Las reglas del juego acá no las fija el mercado solo —las fija la relación entre el Estado, los grupos de interés y los ciclos de poder. Ignorar eso no es ser pragmático; es operar con un mapa incompleto.</p>
+        <p>La respuesta larga empieza en otro lado.</p>
+
+        <h3>El problema del ruido</h3>
+        <p>Argentina genera una cantidad enorme de opinión política y muy poco análisis. La diferencia no es ideológica sino metodológica: el análisis separa lo que pasó de lo que debería haber pasado, identifica causas, distingue lo estructural de lo coyuntural. La opinión colapsa todo eso en un juicio moral inmediato.</p>
+        <p>Estudiar historia política y teoría del Estado es, entre otras cosas, entrenarse para tolerar la complejidad sin resolverla prematuramente.</p>
+
+        <h3>Lo que me deja el Marketing Político</h3>
+        <p>El curso de la UNTREF me dio algo distinto: la política como <em>práctica</em>. Cómo se construye una narrativa, cómo se segmenta un electorado, cómo funciona la comunicación en contextos de alta desconfianza. Herramientas. Y las herramientas viajan: buena parte de lo que aprendí ahí lo aplico en estrategia de marca y en la construcción de posicionamiento para los negocios en los que trabajo.</p>
+        <p>La frontera entre marketing político y marketing comercial es más porosa de lo que parece.</p>
+
+        <blockquote>Eso es lo que estudio y por qué. Seguiré escribiendo sobre esto —y sobre lo que voy leyendo— en las próximas entradas.</blockquote>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>
+    <a href="mailto:hola@juanmartincabral.com">hola@juanmartincabral.com</a>
+    &nbsp;·&nbsp;
+    <a href="https://www.linkedin.com/in/juanmartincabral" target="_blank" rel="noopener">LinkedIn</a>
+  </p>
+</footer>
+
+<script>
+  function showView(name) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+
+    const target = document.getElementById('view-' + name);
+    if (target) target.classList.add('active');
+
+    const navEl = document.getElementById('nav-' + name);
+    if (navEl) navEl.classList.add('active');
+  }
+
+  function showPost(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+
+    const target = document.getElementById('view-' + id);
+    if (target) target.classList.add('active');
+
+    document.getElementById('nav-blog').classList.add('active');
+  }
+</script>
+
+</body>
+</html>
